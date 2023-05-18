@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edición</title>
+  </head>
+  <body>
+    <form method="POST">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>Titulo:</td>
+          <td>{{ form.titulo }}</td>
+        </tr>
+        <tr>
+          <td>Bajada:</td>
+          <td>{{ form.bajada }}</td>
+        </tr>
+        <tr>
+          <td>Contenido:</td>
+          <td>{{ form.contenido }}</td>
+        </tr>
+        <tr>
+          <td>Fecha Publicación:</td>
+          <td>{{ form.fecha_publicacion }}</td>
+        </tr>
+        <tr>
+          <td>Clasificación</td>
+          <td>
+            <select name="clasificacion_id">
+              {% for clasif in clasificaciones %}
+                {% if clasif.id == form.clasificacion_id.value   %}
+                <option value="{{ clasif.id }}" selected>{{ clasif.nombre }}</option>
+                {% else %}
+                <option value="{{ clasif.id }}">{{ clasif.nombre }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Autor</td>
+          <td>
+            <select name="autor_id">
+              {% for autor in usuarios %}
+                {% if autor.id == form.usuario_id.value %}
+                <option value="{{ autor.id }}" selected>{{ autor.first_name }} {{ autor.last_name }}</option>
+                {% else %}
+                <option value="{{ autor.id }}">{{ autor.first_name }} {{ autor.last_name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+      </table>
+      <input type="submit" value="Guardar">
+      <input type="button" value="Cancelar" onclick="location.href='/config/publicaciones'">
+    </form>
+  </body>
+</html>

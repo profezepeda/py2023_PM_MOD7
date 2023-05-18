@@ -1,0 +1,35 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <title>Admin Panel</title>
+
+  </head>
+  <body>
+    <h1>Publicaciones</h1>
+    <a href="{% url 'publicaciones_editar' 0 %}">Crear</a>
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <th>Clasificacion</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Fecha</th>
+          <th>Acc.</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for publicacion in publicaciones %}
+        <tr>
+          <td>{{ publicacion.clasificacion.nombre }}</td>
+          <td>{{ publicacion.titulo }}</td>
+          <td>{{ publicacion.autor.firt_name }} {{ publicacion.autor.last_name }}</td>
+          <td>{{ publicacion.fecha_publicacion|date }}</td>
+          <td>
+            <a href="{% url 'publicaciones_editar' publicacion.id %}">Editar</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
